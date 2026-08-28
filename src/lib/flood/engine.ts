@@ -480,7 +480,7 @@ export function simulateStep(
   const { cells, drains, cellAreaM2 } = terrain;
   const dtH = dtMin / 60;
   const dtS = dtMin * 60;
-  const depth = Float32Array.from(prev); // cm
+  const depth = new Float32Array(prev); // cm
 
   // 1. rainfall → runoff (cm of water added on the cell)
   let totalRunoff = 0;
