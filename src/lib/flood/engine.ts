@@ -807,12 +807,12 @@ export function runNowcast(
   const nowcast = rainfallNowcast(peakRain);
   const minElev = Math.min(...cells.map((c) => c.elev));
 
-  let depth = new Float32Array(cells.length);
+  let depth: Float32Array<ArrayBufferLike> = new Float32Array(cells.length);
   // warm-up: 20 minutes of the "now" intensity so t=0 is not bone dry
   depth = simulateStep(terrain, depth, nowcast[0].mm, 20, blockageBoost).depth;
 
   const steps: StepResult[] = [];
-  let prevDepthArr = depth;
+  let prevDepthArr: Float32Array<ArrayBufferLike> = depth;
   for (let i = 0; i < HORIZONS.length; i++) {
     const dt = i === 0 ? 10 : HORIZONS[i] - HORIZONS[i - 1];
     const rain = nowcast[i].mm;
