@@ -4,6 +4,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme inline {
+  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Barlow Condensed", "Barlow", sans-serif;
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-severe: var(--severe);
+  --color-grid-line: var(--grid-line);
+}
+
+
 /*
  * Design system definition.
  *
@@ -62,39 +74,44 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --radius: 0.35rem;
+  --background: oklch(0.17 0.021 250);
+  --foreground: oklch(0.93 0.012 240);
+  --card: oklch(0.215 0.024 252);
+  --card-foreground: oklch(0.94 0.012 240);
+  --popover: oklch(0.2 0.023 252);
+  --popover-foreground: oklch(0.94 0.012 240);
+  --primary: oklch(0.78 0.13 195);
+  --primary-foreground: oklch(0.18 0.03 240);
+  --secondary: oklch(0.27 0.025 250);
+  --secondary-foreground: oklch(0.92 0.012 240);
+  --muted: oklch(0.25 0.022 250);
+  --muted-foreground: oklch(0.68 0.02 245);
+  --accent: oklch(0.79 0.15 78);
+  --accent-foreground: oklch(0.2 0.03 60);
+  --destructive: oklch(0.62 0.2 22);
+  --destructive-foreground: oklch(0.97 0.01 240);
+  --border: oklch(0.31 0.025 250);
+  --input: oklch(0.28 0.025 250);
+  --ring: oklch(0.78 0.13 195);
+  --ok: oklch(0.74 0.13 175);
+  --warn: oklch(0.82 0.15 85);
+  --danger: oklch(0.7 0.17 45);
+  --severe: oklch(0.62 0.21 22);
+  --grid-line: oklch(0.3 0.02 250 / 55%);
+  --chart-1: oklch(0.78 0.13 195);
+  --chart-2: oklch(0.82 0.15 85);
+  --chart-3: oklch(0.7 0.17 45);
+  --chart-4: oklch(0.62 0.21 22);
+  --chart-5: oklch(0.74 0.13 175);
+  --sidebar: oklch(0.2 0.023 252);
+  --sidebar-foreground: oklch(0.93 0.012 240);
+  --sidebar-primary: oklch(0.78 0.13 195);
+  --sidebar-primary-foreground: oklch(0.18 0.03 240);
+  --sidebar-accent: oklch(0.27 0.025 250);
+  --sidebar-accent-foreground: oklch(0.93 0.012 240);
+  --sidebar-border: oklch(0.31 0.025 250);
+  --sidebar-ring: oklch(0.78 0.13 195);
 }
 
 .dark {
@@ -141,4 +158,41 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-image:
+      radial-gradient(circle at 20% -10%, oklch(0.26 0.05 220 / 45%), transparent 55%),
+      radial-gradient(circle at 90% 0%, oklch(0.24 0.05 60 / 25%), transparent 45%);
+    background-attachment: fixed;
+  }
+  h1, h2, h3, .display {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+  }
+}
+
+@utility panel {
+  background-color: color-mix(in oklab, var(--card) 88%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(6px);
+}
+
+@utility label-xs {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility scanline {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 3px,
+    oklch(1 0 0 / 2%) 3px 4px
+  );
 }
