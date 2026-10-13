@@ -120,7 +120,7 @@ export function FloodMap(props: Props) {
         zoom: 14.2,
         minZoom: 11,
         maxZoom: 19,
-        attributionControl: true,
+        attributionControl: {},
         cooperativeGestures: true,
       });
       mapRef.current = map;
