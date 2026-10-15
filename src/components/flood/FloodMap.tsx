@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Feature, FeatureCollection, Geometry, Position } from "geojson";
 import type { GeoJSONSource, Map as MapLibreMap } from "maplibre-gl";
+import mapWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 import {
   GRID,
   RISK_COLOR,
@@ -113,6 +114,7 @@ export function FloodMap(props: Props) {
 
     void import("maplibre-gl").then((maplibre) => {
       if (disposed || !hostRef.current) return;
+      maplibre.setWorkerUrl(mapWorkerUrl);
       map = new maplibre.Map({
         container: hostRef.current,
         style: STYLE_URL,
@@ -420,7 +422,11 @@ export function FloodMap(props: Props) {
 
   return (
     <div className="relative h-full w-full overflow-hidden rounded-sm bg-background">
-      <div ref={hostRef} className="absolute inset-0" aria-label={`${terrain.city.name} interactive street map`} />
+      <div
+        ref={hostRef}
+        className="flood-map-host absolute inset-0"
+        aria-label={`${terrain.city.name} interactive street map`}
+      />
       <div className="pointer-events-none absolute top-3 left-3 z-10 flex flex-col gap-1">
         <span className="w-fit rounded-sm border border-border bg-background/90 px-2 py-1 font-mono text-[10px] text-accent">
           PROTOTYPE / SIMULATED DATA
