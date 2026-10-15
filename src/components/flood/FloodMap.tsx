@@ -422,7 +422,11 @@ export function FloodMap(props: Props) {
 
   return (
     <div className="relative h-full w-full overflow-hidden rounded-sm bg-background">
-      <div ref={hostRef} className="absolute inset-0" aria-label={`${terrain.city.name} interactive street map`} />
+      <div
+        ref={hostRef}
+        className="flood-map-host absolute inset-0"
+        aria-label={`${terrain.city.name} interactive street map`}
+      />
       <div className="pointer-events-none absolute top-3 left-3 z-10 flex flex-col gap-1">
         <span className="w-fit rounded-sm border border-border bg-background/90 px-2 py-1 font-mono text-[10px] text-accent">
           PROTOTYPE / SIMULATED DATA
