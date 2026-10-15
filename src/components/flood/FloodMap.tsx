@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Feature, FeatureCollection, Geometry, Position } from "geojson";
 import type { GeoJSONSource, Map as MapLibreMap } from "maplibre-gl";
+import mapWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 import {
   GRID,
   RISK_COLOR,
@@ -113,6 +114,7 @@ export function FloodMap(props: Props) {
 
     void import("maplibre-gl").then((maplibre) => {
       if (disposed || !hostRef.current) return;
+      maplibre.setWorkerUrl(mapWorkerUrl);
       map = new maplibre.Map({
         container: hostRef.current,
         style: STYLE_URL,
